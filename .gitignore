@@ -1,0 +1,8 @@
+.build/
+artifacts/
+downloads/
+state/
+*.apk
+*.jks
+*.keystore
+
