@@ -11,6 +11,11 @@ The profile deliberately retains these recovery-critical categories:
 - Controller, Bluetooth, Bluetooth DFU, input-device, IME, and key-policy code.
 - Amazon communication, discovery, SSDP, and REST services used by remote
   control fallback.
+- `com.amazon.awvflingreceiver`, `com.amazon.whisperlink.core.android`,
+  `com.amazon.whisperplay.contracts`, and
+  `com.amazon.whisperplay.service.install` are explicitly protected because a
+  paired WhisperPlay virtual remote is a recovery path when ADB or physical
+  input is unavailable.
 - Network monitor, smart-connect, Wi-Fi credential locker, captive portal, and
   automatic time-zone components.
 - HDMI ARC, audio routing, resolution cycling, and display framework code.
@@ -18,12 +23,19 @@ The profile deliberately retains these recovery-critical categories:
   storage manager, HOME bootstrap, factory-data-reset watcher, and URL provider.
 - Metrics, messaging, device-client, remote-settings, and compatibility SDK
   contract APKs linked by retained framework packages. In particular,
-  `com.amazon.client.metrics` must remain enabled because framework clients bind
-  its service during boot; other active collectors and clients are disabled by
-  the profile.
+`com.amazon.client.metrics` must remain enabled because framework clients bind
+its service during boot; other active collectors and clients are disabled by
+the profile.
 - `com.amazon.imp`, `com.amazon.identity.auth.device.authorization`, and
   `com.amazon.tv.launcher` remain enabled. They provide the account
   authenticator, identity authorization layer, and HOME boot handoff.
+
+The debloat script checks the protected virtual-remote package set before
+making any package changes and stops if the aggressive list contains one of
+them. Fire OS 5 also treats its Developer Options debugging toggle as a global
+ADB switch: disabling it stops both USB and network ADB. Keep ADB enabled until
+the retained virtual remote has been paired and tested, or another local input
+path is known to work.
 
 ## Live TV ordering
 

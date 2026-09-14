@@ -4,6 +4,18 @@ source "$(cd "$(dirname "$0")" && pwd)/lib.sh"
 guard_device
 
 PACKAGE_FILE="$REPO_ROOT/packages/aggressive.txt"
+PROTECTED_REMOTE_PACKAGES=(
+    com.amazon.awvflingreceiver
+    com.amazon.whisperlink.core.android
+    com.amazon.whisperplay.contracts
+    com.amazon.whisperplay.service.install
+)
+for package in "${PROTECTED_REMOTE_PACKAGES[@]}"; do
+    if grep -Fqx "$package" "$PACKAGE_FILE"; then
+        die "Refusing to disable recovery-critical virtual remote package: $package"
+    fi
+done
+
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"
 state_dir="$REPO_ROOT/state/$stamp"
 mkdir -p "$state_dir"

@@ -30,8 +30,15 @@ build also requires an explicit `ALLOW_UNTESTED_BUILD=1`; the original
 - This repository never writes boot, recovery, aboot, system, or an eMMC block
   device. It does not claim a persistent-root or bootloader-unlock path.
 - The aggressive profile removes OTA, telemetry, ads, Alexa, Amazon media,
-  marketplace, casting, sync, tutorial, support, and other Amazon services.
+  marketplace, non-recovery casting, sync, tutorial, support, and other Amazon
+  services.
   Read [`packages/aggressive.txt`](packages/aggressive.txt) before running it.
+- The profile preserves `com.amazon.awvflingreceiver` and the WhisperPlay
+  packages used by paired virtual remotes. The debloat script refuses to run if
+  those recovery-critical packages are added to the aggressive list.
+- Fire OS 5 exposes one global ADB switch. Turning off "USB debugging" also
+  stops network ADB and any launcher helper running from an authorized host.
+  Do not disable it until a tested physical or virtual control path remains.
 - Run this only on hardware you own and can recover. Keep power stable.
 
 ## Why no CoreELEC or LineageOS image
@@ -72,6 +79,20 @@ scripts/root-command.sh id
 
 A successful final command reports `uid=0(root)` and SELinux context
 `u:r:shell:s0`. Run it again after every reboot when temporary root is needed.
+
+## Verified outcomes and limitations
+
+On the exact tested build, temporary Dirty COW root, Projectivy 4.36, Aurora
+Store 4.7.5, and boot-safe post-start launcher stopping were exercised on the
+device. The stock launcher package must remain enabled for HomeStarter to
+finish boot, but its process can be force-stopped after boot before Projectivy
+is started.
+
+FTVLaunchX 1.0.1 can request a post-boot Projectivy launch, but this Fire OS
+authorizer rejects its non-Amazon accessibility service. It therefore did not
+provide verified HOME interception on this unit. An authorized ADB host can
+perform the post-boot handoff, but that dependency must be considered before
+ADB is disabled.
 
 ## Aggressive debloat
 

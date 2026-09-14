@@ -27,7 +27,6 @@ com.amazon.kso.blackbird
 com.amazon.ods.kindleconnect
 com.amazon.kindle.cms
 com.amazon.kindle.devicecontrols
-com.amazon.awvflingreceiver
 com.amazon.dialservice
 com.amazon.wcast.sink
 com.amazon.socialplatform
@@ -80,6 +79,3 @@ com.amazon.tv.nimh
 com.amazon.tv.oobe
 com.amazon.tv.ottssocompanionapp
 com.amazon.tv.ottssolib
-com.amazon.whisperlink.core.android
-com.amazon.whisperplay.contracts
-com.amazon.whisperplay.service.install
