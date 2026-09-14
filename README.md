@@ -155,6 +155,28 @@ Aurora is optional and is not run by the root, debloat, or launcher workflows.
 See [`docs/amazon-audit.md`](docs/amazon-audit.md) for the Amazon package
 keep/remove boundary.
 
+## Optional Android phone remote
+
+For older Android phones or when the current Fire TV mobile app cannot discover
+Bueller, use Amazon Fire TV mobile app 1.0.17.00. This 2017 universal APK targets
+Android 5.1/API 22 and uses the remote protocol shipped during the Fire OS 5 era.
+
+[Download Amazon Fire TV Remote 1.0.17.00 APK](https://github.com/Delitants/firetv-bueller-toolkit/releases/download/remote-app-1.0.17.00/Amazon-Fire-TV-Remote-1.0.17.00.apk)
+
+| Property | Value |
+| --- | --- |
+| Package | `com.amazon.storm.lightning.client.aosp` |
+| Version | `1.0.17.00` (`1000170000`) |
+| Minimum Android | 4.0.3 / API 15 |
+| Expected APK SHA-256 | `9460f967cabdb518c449c045de04cd4e3cafc57405cb30efb5b2c4df230b670e` |
+| Amazon signing-certificate SHA-256 | `2f19adeb284eb36f7f07786152b9a1d14b21653203ad0b04ebbf9c73ab6d7625` |
+
+The phone and Fire TV must be on the same multicast-enabled LAN. Discovery also
+requires `com.amazon.awvflingreceiver` and the preserved WhisperPlay packages to
+be enabled on the Fire TV. The mobile app cannot restore ADB or repair disabled
+receiver packages by itself. Android 14 and newer may reject this legacy target
+SDK; use the current official Fire TV app from Google Play in that case.
+
 ## Rollback
 
 ```bash
@@ -168,5 +190,7 @@ restores the four previous settings. It does not uninstall Projectivy.
 
 This repository's original scripts and payload are MIT licensed. Dirty COW and
 Projectivy are downloaded from their upstream projects and retain their own
-licenses. No Amazon firmware, premium APK, private key, device serial, IP
-address, or device backup is included.
+licenses. The optional Amazon Fire TV mobile APK is proprietary Amazon software,
+is not covered by this repository's MIT license, and is supplied unmodified for
+legacy-device interoperability. No Amazon firmware, premium APK, private key,
+device serial, IP address, or device backup is included.
