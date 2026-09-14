@@ -24,8 +24,9 @@ build also requires an explicit `ALLOW_UNTESTED_BUILD=1`; the original
 
 - Root is **temporary**. Dirty COW overlays the page cache for
   `/system/bin/run-as`; a reboot restores the original executable.
-- Disabled-package state, telemetry settings, the installed launcher, and the
-  launcher selection persist across reboot.
+- Disabled-package state, telemetry settings, and the installed launcher
+  persist across reboot. Keep the stock launcher enabled: Fire OS HomeStarter
+  requires it to complete boot on the tested Bueller firmware.
 - This repository never writes boot, recovery, aboot, system, or an eMMC block
   device. It does not claim a persistent-root or bootloader-unlock path.
 - The aggressive profile removes OTA, telemetry, ads, Alexa, Amazon media,
@@ -104,13 +105,16 @@ scripts/install-projectivy.sh --replace-existing
 ```
 
 Complete Projectivy's onboarding on screen. Confirm it opens correctly, then
-make it HOME by disabling only the stock launcher for user 0:
+use the helper to retain/repair the boot-critical stock launcher and start
+Projectivy:
 
 ```bash
 scripts/make-projectivy-home.sh
 ```
 
-The accessibility-service toggle is not required for HOME resolution. On this
+Do not disable `com.amazon.tv.launcher` to force HOME resolution. On this
+firmware that leaves `com.amazon.firehomestarter` stuck during the next boot.
+The accessibility-service toggle is not required to launch Projectivy. On this
 Fire OS build, SettingsProvider rejected attempts to set it programmatically.
 
 ## Optional Aurora Store
@@ -134,8 +138,7 @@ scripts/rollback.sh
 ```
 
 Rollback re-enables only packages newly disabled by the recorded run and
-restores the four previous settings. It also re-enables the stock launcher if
-`make-projectivy-home.sh` disabled it. It does not uninstall Projectivy.
+restores the four previous settings. It does not uninstall Projectivy.
 
 ## License and third-party software
 

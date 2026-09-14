@@ -3,7 +3,6 @@ com.amazon.device.software.ota.override
 com.amazon.tv.forcedotaupdater.v2
 com.amazon.tv.easyupgrade
 com.amazon.device.metrics
-com.amazon.client.metrics
 com.amazon.tv.fw.metrics
 com.amazon.device.crashmanager
 com.amazon.device.logmanager
@@ -68,8 +67,6 @@ com.amazon.ftv.glorialist
 com.amazon.ftv.screensaver
 com.amazon.ftv.xpicker
 com.amazon.hedwig
-com.amazon.identity.auth.device.authorization
-com.amazon.imp
 com.amazon.logan
 com.amazon.malcolm
 com.amazon.providers.contentsupport

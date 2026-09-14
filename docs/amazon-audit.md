@@ -17,8 +17,13 @@ The profile deliberately retains these recovery-critical categories:
 - Settings, unified settings provider, WebView, notification center, low
   storage manager, HOME bootstrap, factory-data-reset watcher, and URL provider.
 - Metrics, messaging, device-client, remote-settings, and compatibility SDK
-  contract APKs linked by retained framework packages. Active collectors and
-  clients are disabled by the profile.
+  contract APKs linked by retained framework packages. In particular,
+  `com.amazon.client.metrics` must remain enabled because framework clients bind
+  its service during boot; other active collectors and clients are disabled by
+  the profile.
+- `com.amazon.imp`, `com.amazon.identity.auth.device.authorization`, and
+  `com.amazon.tv.launcher` remain enabled. They provide the account
+  authenticator, identity authorization layer, and HOME boot handoff.
 
 ## Live TV ordering
 
@@ -26,4 +31,3 @@ With Amazon Video disabled, a still-running Live TV Station process can query a
 missing TV-input provider and flood Fire OS's dropbox logger. The debloat list
 therefore includes `com.amazon.tv.livetv`; package changes are sent in short
 batches because Fire OS 5 ADB rejects long inline shell commands.
-
