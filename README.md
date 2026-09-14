@@ -114,6 +114,9 @@ scripts/make-projectivy-home.sh
 
 Do not disable `com.amazon.tv.launcher` to force HOME resolution. On this
 firmware that leaves `com.amazon.firehomestarter` stuck during the next boot.
+After Fire OS completes boot, the helper force-stops the stock launcher's
+background process so it consumes no resident memory. Run the helper again
+after each reboot, or trigger it from an authorized ADB host.
 The accessibility-service toggle is not required to launch Projectivy. On this
 Fire OS build, SettingsProvider rejected attempts to set it programmatically.
 
